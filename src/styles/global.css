@@ -84,6 +84,102 @@
   padding: 2.5rem 1.5rem 4rem;
 }
 
+.main-content--wide {
+  max-width: 1000px;
+}
+
+/* ========== 文章页：左侧目录 + 右侧正文 ========== */
+.blog-post-layout {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+.blog-toc {
+  flex-shrink: 0;
+  width: 200px;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.blog-toc-nav {
+  padding: 0.75rem 0;
+  border-right: 1px solid #e0ddd6;
+}
+
+.blog-toc-title {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #78716c;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+  padding-right: 1rem;
+}
+
+.blog-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.blog-toc-item {
+  margin: 0;
+  padding: 0;
+}
+
+.blog-toc-item a {
+  display: block;
+  font-size: 0.8125rem;
+  color: #57534e;
+  text-decoration: none;
+  padding: 0.25rem 0 0.25rem 0;
+  padding-left: 0;
+  border-left: 2px solid transparent;
+  margin-left: 0;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.blog-toc-item[data-depth="2"] a { padding-left: 0.75rem; }
+.blog-toc-item[data-depth="3"] a { padding-left: 1.25rem; }
+.blog-toc-item[data-depth="4"] a { padding-left: 1.75rem; }
+.blog-toc-item[data-depth="5"] a { padding-left: 2.25rem; }
+.blog-toc-item[data-depth="6"] a { padding-left: 2.75rem; }
+
+.blog-toc-link:hover {
+  color: #1c1917;
+  border-left-color: #d6d3d1;
+}
+
+.blog-article {
+  flex: 1;
+  min-width: 0;
+}
+
+/* 小屏：目录移到上方、不再粘性 */
+@media (max-width: 899px) {
+  .blog-post-layout {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .blog-toc {
+    width: 100%;
+    position: static;
+  }
+
+  .blog-toc-nav {
+    border-right: none;
+    border-bottom: 1px solid #e0ddd6;
+    padding-bottom: 1rem;
+  }
+
+  .blog-toc-title {
+    padding-right: 0;
+  }
+}
+
 .main-content > h1 {
   font-family: var(--font-body);
   font-weight: 700;
@@ -92,13 +188,13 @@
   margin-bottom: 0.5rem;
 }
 
-.main-content a:not(.nav-title):not(.nav-links a) {
+.main-content a:not(.nav-title):not(.nav-links a):not(.blog-toc-link) {
   color: #57534e;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-.main-content a:not(.nav-title):not(.nav-links a):hover {
+.main-content a:not(.nav-title):not(.nav-links a):not(.blog-toc-link):hover {
   color: #1c1917;
 }
 

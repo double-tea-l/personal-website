@@ -5,9 +5,11 @@ import Nav from "../components/Nav.astro";
 interface Props {
   title: string;
   description?: string;
+  /** 文章页等需要左侧目录时设为 true，放宽主区域宽度 */
+  wideMain?: boolean;
 }
 
-const { title, description = "" } = Astro.props;
+const { title, description = "", wideMain = false } = Astro.props;
 ---
 
 <html lang="zh-CN">
@@ -26,7 +28,7 @@ const { title, description = "" } = Astro.props;
   <body class="page-paper">
     <span class="grain" aria-hidden="true"></span>
     <Nav />
-    <main class="main-content">
+    <main class:list={["main-content", wideMain && "main-content--wide"]}>
       <slot />
     </main>
   </body>

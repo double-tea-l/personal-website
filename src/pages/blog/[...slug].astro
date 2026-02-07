@@ -13,10 +13,8 @@ const { Content } = await post.render();
 
 <Layout title={post.data.title} description={post.data.description}>
   <article class="article-body">
-    <h1 class="mb-2 text-2xl font-bold">{post.data.title}</h1>
-    <p class="mb-6 text-sm text-neutral-500">
-      {post.data.date.toLocaleDateString("zh-CN")}
-    </p>
+    <h1>{post.data.title}</h1>
+    <p class="article-meta">{post.data.date.toLocaleDateString("zh-CN")}</p>
     <Content />
   </article>
 </Layout>

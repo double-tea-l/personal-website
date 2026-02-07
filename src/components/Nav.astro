@@ -2,18 +2,13 @@
 import { siteConfig } from "../config/site";
 ---
 
-<nav class="border-b border-neutral-200 bg-white">
-  <div class="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
-    <a href="/" class="font-semibold text-neutral-900">{siteConfig.title}</a>
-    <ul class="flex gap-6">
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-title">{siteConfig.title}</a>
+    <ul class="nav-links">
       {siteConfig.nav.map((item) => (
         <li>
-          <a
-            href={item.href}
-            class="text-neutral-600 hover:text-neutral-900"
-          >
-            {item.label}
-          </a>
+          <a href={item.href}>{item.label}</a>
         </li>
       ))}
     </ul>

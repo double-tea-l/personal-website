@@ -20,12 +20,13 @@ const { title, description = "" } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-neutral-50 text-neutral-900">
+  <body class="page-paper">
+    <span class="grain" aria-hidden="true"></span>
     <Nav />
-    <main class="mx-auto max-w-4xl px-4 py-8">
+    <main class="main-content">
       <slot />
     </main>
   </body>

@@ -8,13 +8,13 @@ const posts = (await getCollection("blog"))
 ---
 
 <Layout title="阅读笔记" description="读书与文章笔记">
-  <h1 class="mb-6 text-2xl font-bold">阅读笔记</h1>
-  <ul class="space-y-4">
+  <h1 class="mb-6">阅读笔记</h1>
+  <ul class="space-y-3 list-none pl-0">
     {posts.map((post) => (
       <li>
-        <a href={`/blog/${post.slug}`} class="block hover:opacity-80">
-          <span class="font-medium">{post.data.title}</span>
-          <span class="ml-2 text-sm text-neutral-500">
+        <a href={`/blog/${post.slug}`} class="block py-1.5 border-b border-[#e0ddd6] border-opacity-60 last:border-0">
+          <span class="font-medium text-[#1c1917]">{post.data.title}</span>
+          <span class="ml-2 text-sm text-[#78716c]">
             {post.data.date.toLocaleDateString("zh-CN")}
           </span>
         </a>

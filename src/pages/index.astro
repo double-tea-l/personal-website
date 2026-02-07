@@ -4,24 +4,35 @@ import { siteConfig } from "../config/site";
 import WritingActivity from "../components/WritingActivity.astro";
 import { getCollection } from "astro:content";
 
+const TZ = "America/Los_Angeles";
+
+function dateStrInPST(d: Date): string {
+  return d.toLocaleDateString("en-CA", { timeZone: TZ });
+}
+
+function addDaysPST(dateStr: string, days: number): string {
+  const t = new Date(dateStr + "T12:00:00").getTime() + days * 24 * 60 * 60 * 1000;
+  return new Date(t).toLocaleDateString("en-CA", { timeZone: TZ });
+}
+
+function getSundayPST(dateStr: string): string {
+  const d = new Date(dateStr + "T12:00:00");
+  const day = new Date(d).toLocaleDateString("en-US", { timeZone: TZ, weekday: "short" });
+  const dow = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(day);
+  if (dow <= 0) return dateStr;
+  return addDaysPST(dateStr, -dow);
+}
+
 const posts = (await getCollection("blog")).filter((p) => !p.data.draft);
-const toDateKey = (d: Date) =>
-  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 const dayCount: Record<string, number> = {};
 for (const p of posts) {
-  const key = toDateKey(p.data.date);
+  const key = dateStrInPST(p.data.date);
   dayCount[key] = (dayCount[key] ?? 0) + 1;
 }
 
-const today = new Date();
-const startDate = new Date(today);
-startDate.setDate(startDate.getDate() - 364);
-const getWeekStart = (d: Date) => {
-  const x = new Date(d);
-  x.setDate(x.getDate() - x.getDay());
-  return x;
-};
-const weekStart = getWeekStart(startDate);
+const todayPST = dateStrInPST(new Date());
+const startDatePST = addDaysPST(todayPST, -364);
+const weekStartPST = getSundayPST(startDatePST);
 
 const COLS = 53;
 const ROWS = 7;
@@ -29,13 +40,11 @@ const grid: number[][] = [];
 for (let c = 0; c < COLS; c++) {
   const col: number[] = [];
   for (let r = 0; r < ROWS; r++) {
-    const cellDate = new Date(weekStart);
-    cellDate.setDate(weekStart.getDate() + c * 7 + r);
-    const key = toDateKey(cellDate);
-    if (cellDate < startDate || cellDate > today) {
+    const cellDatePST = addDaysPST(weekStartPST, c * 7 + r);
+    if (cellDatePST < startDatePST || cellDatePST > todayPST) {
       col.push(-1);
     } else {
-      const count = dayCount[key] ?? 0;
+      const count = dayCount[cellDatePST] ?? 0;
       col.push(Math.min(count, 4));
     }
   }
@@ -44,7 +53,6 @@ for (let c = 0; c < COLS; c++) {
 
 const activeDays = Object.keys(dayCount).length;
 const totalPosts = posts.length;
-const weekStartStr = weekStart.toISOString().slice(0, 10);
 ---
 
 <Layout title={siteConfig.title} description={siteConfig.description}>
@@ -64,6 +72,6 @@ const weekStartStr = weekStart.toISOString().slice(0, 10);
     grid={grid}
     activeDays={activeDays}
     totalPosts={totalPosts}
-    weekStart={weekStartStr}
+    weekStart={weekStartPST}
   />
 </Layout>

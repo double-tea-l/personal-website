@@ -102,11 +102,12 @@
   color: #1c1917;
 }
 
-/* ========== 阅读笔记正文：报纸排版 ========== */
+/* ========== 阅读笔记正文：报纸/书本感，Courier 保留 ========== */
 .article-body {
   font-family: var(--font-body);
-  font-size: 1.0625rem;
-  line-height: 1.78;
+  font-size: 0.9375rem;   /* 约 15px，更接近书本正文 */
+  line-height: 1.62;
+  letter-spacing: 0;       /* 字距收紧，更接近书本 */
   color: #292524;
   max-width: 65ch;
 }
@@ -114,7 +115,8 @@
 .article-body h1 {
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
+  letter-spacing: 0;
   color: #1c1917;
   margin-bottom: 0.25rem;
   line-height: 1.3;
@@ -124,9 +126,9 @@
 
 .article-body .article-meta {
   font-family: var(--font-body);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: #78716c;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
   letter-spacing: 0.02em;
 }
 
@@ -134,16 +136,17 @@
 .article-body h3 {
   font-family: var(--font-body);
   font-weight: 600;
+  letter-spacing: 0;
   color: #1c1917;
-  margin-top: 1.75em;
+  margin-top: 1.5em;
   margin-bottom: 0.5em;
 }
 
-.article-body h2 { font-size: 1.25rem; }
-.article-body h3 { font-size: 1.125rem; }
+.article-body h2 { font-size: 1.125rem; }
+.article-body h3 { font-size: 1.0625rem; }
 
 .article-body p {
-  margin-bottom: 1.125em;
+  margin-bottom: 0.95em;
   text-align: justify;
   text-justify: inter-character;
 }

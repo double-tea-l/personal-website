@@ -44,6 +44,7 @@ for (let c = 0; c < COLS; c++) {
 
 const activeDays = Object.keys(dayCount).length;
 const totalPosts = posts.length;
+const weekStartStr = weekStart.toISOString().slice(0, 10);
 ---
 
 <Layout title={siteConfig.title} description={siteConfig.description}>
@@ -59,5 +60,10 @@ const totalPosts = posts.length;
     <a href="/photos">相册</a>
   </p>
 
-  <WritingActivity grid={grid} activeDays={activeDays} totalPosts={totalPosts} />
+  <WritingActivity
+    grid={grid}
+    activeDays={activeDays}
+    totalPosts={totalPosts}
+    weekStart={weekStartStr}
+  />
 </Layout>

@@ -1,14 +1,16 @@
 ---
 interface Props {
-  /** 53 列 × 7 行，每格为当天文章数（0–4+），-1 表示不在范围内 */
   grid: number[][];
-  /** 过去一年内有输出的天数 */
   activeDays: number;
-  /** 过去一年内总文章数 */
   totalPosts: number;
+  /** 第一周周日的日期 YYYY-MM-DD，用于算月份 */
+  weekStart: string;
 }
 
-const { grid, activeDays, totalPosts } = Astro.props;
+const { grid, activeDays, totalPosts, weekStart } = Astro.props;
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 const levelClass = (n: number) => {
   if (n <= 0) return "level-0";
   if (n === 1) return "level-1";
@@ -16,6 +18,18 @@ const levelClass = (n: number) => {
   if (n === 3) return "level-3";
   return "level-4";
 };
+
+const start = new Date(weekStart + "T00:00:00");
+const COLS = grid.length;
+const monthLabels: string[] = [];
+let lastMonth = -1;
+for (let c = 0; c < COLS; c++) {
+  const d = new Date(start);
+  d.setDate(d.getDate() + c * 7);
+  const m = d.getMonth();
+  monthLabels.push(m !== lastMonth ? MONTHS[m] : "");
+  lastMonth = m;
+}
 ---
 
 <section class="writing-activity" aria-label="写作记录">
@@ -25,26 +39,38 @@ const levelClass = (n: number) => {
     </span>
   </div>
   <div class="activity-grid-wrap">
-    <div class="activity-grid" role="img" aria-label="按日的写作热力图">
-      {grid.map((col, c) => (
-        <div class="activity-col" key={c}>
-          {col.map((count, r) => (
-            <span
-              class={`activity-cell ${levelClass(count)}`}
-              title={count >= 0 ? (count === 0 ? "无" : `${count} 篇`) : ""}
-            />
-          ))}
+    <div class="activity-table">
+      <div class="activity-month-row">
+        <span class="activity-corner"></span>
+        {monthLabels.map((label) => (
+          <span class="activity-month-cell">{label}</span>
+        ))}
+      </div>
+      {[0, 1, 2, 3, 4, 5, 6].map((r) => (
+        <div class="activity-week-row">
+          <span class="activity-weekday-cell">{WEEKDAYS[r]}</span>
+          <div class="activity-row-cells">
+            {grid.map((col) => {
+              const val = col[r] ?? -1;
+              return (
+                <span
+                  class={`activity-cell ${levelClass(val)}`}
+                  title={val >= 0 ? (val === 0 ? "无" : `${val} 篇`) : ""}
+                />
+              );
+            })}
+          </div>
         </div>
       ))}
     </div>
     <div class="activity-legend">
-      <span>少</span>
+      <span>Less</span>
       <span class="activity-cell level-0"></span>
       <span class="activity-cell level-1"></span>
       <span class="activity-cell level-2"></span>
       <span class="activity-cell level-3"></span>
       <span class="activity-cell level-4"></span>
-      <span>多</span>
+      <span>More</span>
     </div>
   </div>
 </section>

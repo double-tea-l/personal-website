@@ -84,20 +84,27 @@
   padding: 2.5rem 1.5rem 4rem;
 }
 
+/* 文章页：与导航条同宽逻辑，正文左对齐「東」，右侧保持原 1000px 时的留白 */
 .main-content--wide {
-  max-width: 1000px;
+  max-width: none;
+  margin: 0;
+  padding-left: 1.5rem;
+  padding-right: max(1.5rem, (100vw - 1000px) / 2);
 }
 
 /* ========== 文章页：左侧目录 + 右侧正文 ========== */
 .blog-post-layout {
   display: flex;
-  gap: 2.5rem;
+  gap: 2rem;
   align-items: flex-start;
 }
 
+/* 目录占满「東」字左侧空间，并加宽：与导航 720px 左缘对齐，左留 1.5rem 由 main 提供 */
 .blog-toc {
   flex-shrink: 0;
-  width: 200px;
+  width: calc((100vw - 720px) / 2 - 2rem);
+  min-width: 260px;
+  max-width: 320px;
   position: sticky;
   top: 1.5rem;
 }

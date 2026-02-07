@@ -8,29 +8,13 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content, headings } = await post.render();
+const { Content } = await post.render();
 ---
 
-<Layout title={post.data.title} description={post.data.description} wideMain={headings?.length > 0}>
-  <div class="blog-post-layout">
-    {headings && headings.length > 0 && (
-      <aside class="blog-toc" aria-label="文章目录">
-        <nav class="blog-toc-nav">
-          <span class="blog-toc-title">目录</span>
-          <ul class="blog-toc-list">
-            {headings.map((h) => (
-              <li class="blog-toc-item" data-depth={h.depth}>
-                <a href={`#${h.slug}`} class="blog-toc-link">{h.text}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </aside>
-    )}
-    <article class="article-body blog-article">
-      <h1>{post.data.title}</h1>
-      <p class="article-meta">{post.data.date.toLocaleDateString("zh-CN")}</p>
-      <Content />
-    </article>
-  </div>
+<Layout title={post.data.title} description={post.data.description}>
+  <article class="article-body">
+    <h1>{post.data.title}</h1>
+    <p class="article-meta">{post.data.date.toLocaleDateString("zh-CN")}</p>
+    <Content />
+  </article>
 </Layout>

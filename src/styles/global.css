@@ -3,8 +3,6 @@
 /* 英文字体 Courier Prime，中文微软雅黑（Mac 无雅黑时用 PingFang） */
 :root {
   --font-body: "Courier Prime", "Microsoft YaHei", "微软雅黑", "PingFang SC", "Hiragino Sans GB", sans-serif;
-  /* 文章页整块（目录+正文）的最大宽度，改这一个值即可调整左右留白 */
-  --blog-page-width: 1200px;
 }
 
 /* ========== 纸张感底色 + 轻微颗粒 ========== */
@@ -33,19 +31,19 @@
   z-index: 1;
 }
 
-/* ========== 导航：左上标题 + 右上导航 ========== */
+/* ========== 导航：报纸头版式简洁、居中 ========== */
 .site-nav {
   border-bottom: 1px solid #e0ddd6;
   background-color: rgba(246, 244, 239, 0.98);
 }
 
 .nav-inner {
-  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
   padding: 1rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-sizing: border-box;
 }
 
 .nav-title {
@@ -82,111 +80,9 @@
 /* ========== 主内容区：红线内宽幅，报纸栏宽 ========== */
 /* 边距调参：下面三个控制全站主内容区 */
 .main-content {
-  max-width: 720px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2.5rem 1.5rem 4rem; /* 上 右 下 左：可改数值试验 */
-}
-
-/* ---------- 文章页：居中 + 可调页宽 ----------
- * 改 :root 里的 --blog-page-width 即可调整整块宽度（左右留白会一起变）
- * 例如 900px 更窄、1100px 更宽
- */
-.main-content--wide {
-  max-width: var(--blog-page-width);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-/* ========== 文章页：左侧目录(1/3) + 右侧正文(2/3) ========== */
-.blog-post-layout {
-  display: grid;
-  grid-template-columns: 1fr 2fr; /* 目录约 33%，正文约 67% */
-  gap: 2rem;
-  align-items: start;
-}
-
-.blog-toc {
-  position: sticky;
-  top: 1.5rem;
-  min-width: 0;
-}
-
-.blog-toc-nav {
-  padding: 0.75rem 0;
-  border-right: 1px solid #e0ddd6;
-}
-
-.blog-toc-title {
-  display: block;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #78716c;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.75rem;
-  padding-right: 1rem;
-}
-
-.blog-toc-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.blog-toc-item {
-  margin: 0;
-  padding: 0;
-}
-
-.blog-toc-item a {
-  display: block;
-  font-size: 0.8125rem;
-  color: #57534e;
-  text-decoration: none;
-  padding: 0.25rem 0 0.25rem 0;
-  padding-left: 0;
-  border-left: 2px solid transparent;
-  margin-left: 0;
-  transition: color 0.15s, border-color 0.15s;
-}
-
-.blog-toc-item[data-depth="2"] a { padding-left: 0.75rem; }
-.blog-toc-item[data-depth="3"] a { padding-left: 1.25rem; }
-.blog-toc-item[data-depth="4"] a { padding-left: 1.75rem; }
-.blog-toc-item[data-depth="5"] a { padding-left: 2.25rem; }
-.blog-toc-item[data-depth="6"] a { padding-left: 2.75rem; }
-
-.blog-toc-link:hover {
-  color: #1c1917;
-  border-left-color: #d6d3d1;
-}
-
-.blog-article {
-  min-width: 0;
-}
-
-/* 小屏：目录移到上方、不再粘性 */
-@media (max-width: 899px) {
-  .blog-post-layout {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .blog-toc {
-    position: static;
-  }
-
-  .blog-toc-nav {
-    border-right: none;
-    border-bottom: 1px solid #e0ddd6;
-    padding-bottom: 1rem;
-  }
-
-  .blog-toc-title {
-    padding-right: 0;
-  }
 }
 
 .main-content > h1 {
@@ -197,13 +93,13 @@
   margin-bottom: 0.5rem;
 }
 
-.main-content a:not(.nav-title):not(.nav-links a):not(.blog-toc-link) {
+.main-content a:not(.nav-title):not(.nav-links a) {
   color: #57534e;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-.main-content a:not(.nav-title):not(.nav-links a):not(.blog-toc-link):hover {
+.main-content a:not(.nav-title):not(.nav-links a):hover {
   color: #1c1917;
 }
 

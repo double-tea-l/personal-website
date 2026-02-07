@@ -14,7 +14,7 @@ public_folder: "/photos"
 
 collections:
   - name: blog
-    label: 阅读笔记
+    label: 文章
     folder: "src/content/blog"
     create: true
     slug: "{{slug}}"

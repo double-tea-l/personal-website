@@ -1,4 +1,4 @@
-# 个人网站（照片 + 阅读笔记）
+# 个人网站（照片 + 文章）
 
 Astro + Tailwind + Decap CMS，支持在浏览器里写文章、点发布更新网站。
 
@@ -75,7 +75,7 @@ npm run dev
 ## 项目结构
 
 - `src/config/site.ts`：站名、导航（以后加音乐等区块可在此加链接）。
-- `src/content/blog/`：阅读笔记的 Markdown（也可在 /admin 里写）。
+- `src/content/blog/`：文章的 Markdown（也可在 /admin 里写）。
 - `public/photos/`：相册图片；在 /admin 上传的媒体会放这里。
 - `public/admin/`：Decap CMS 后台入口与说明。
 - `api/auth.js`、`api/callback.js`：Vercel 上用于 GitHub 登录的 OAuth 代理。

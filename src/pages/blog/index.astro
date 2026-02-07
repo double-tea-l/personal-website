@@ -7,8 +7,8 @@ const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<Layout title="阅读笔记" description="读书与文章笔记">
-  <h1 class="mb-6">阅读笔记</h1>
+<Layout title="文章" description="文章与随笔">
+  <h1 class="mb-6">文章</h1>
   <ul class="space-y-3 list-none pl-0">
     {posts.map((post) => (
       <li>

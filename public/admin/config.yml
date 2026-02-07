@@ -11,10 +11,10 @@ site_url: https://personal-website-ochre-chi-22.vercel.app
 media_folder: "public/photos"
 public_folder: "/photos"
 
-# 内容区块：阅读笔记
+# 内容区块：文章
 collections:
   - name: blog
-    label: 阅读笔记
+    label: 文章
     folder: "src/content/blog"
     create: true
     slug: "{{slug}}"

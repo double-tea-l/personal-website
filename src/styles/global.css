@@ -102,7 +102,7 @@
   color: #1c1917;
 }
 
-/* ========== 阅读笔记正文：报纸/书本感，Courier 保留 ========== */
+/* ========== 文章正文：报纸/书本感，Courier 保留 ========== */
 .article-body {
   font-family: var(--font-body);
   font-size: 0.9375rem;   /* 约 15px，更接近书本正文 */

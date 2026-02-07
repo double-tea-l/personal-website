@@ -1,0 +1,23 @@
+# Decap CMS 从站点根路径 /config.yml 加载，勿删。详细配置可参考 public/admin/config.yml
+backend:
+  name: github
+  repo: double-tea-l/personal-website
+  branch: main
+
+site_url: https://personal-website-ochre-chi-22.vercel.app
+
+media_folder: "public/photos"
+public_folder: "/photos"
+
+collections:
+  - name: blog
+    label: 阅读笔记
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: 标题, name: title, widget: string }
+      - { label: 日期, name: date, widget: datetime }
+      - { label: 摘要, name: description, widget: string, required: false }
+      - { label: 草稿, name: draft, widget: boolean, default: false }
+      - { label: 正文, name: body, widget: markdown }

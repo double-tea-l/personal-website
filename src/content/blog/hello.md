@@ -1,7 +1,7 @@
 ---
-title: 第一篇阅读笔记
-date: 2025-02-06
-description: 示例文章，可在 /admin 用 Decap 编辑或删除
+title: 试验一下
+date: 2026-02-06T21:01:00.000-08:00
+description: ""
+draft: false
 ---
-
-这是一篇示例。之后你可以在 **你的网站地址/admin** 用编辑器写新文章，点发布即可更新网站。
+实验

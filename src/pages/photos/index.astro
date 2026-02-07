@@ -1,0 +1,12 @@
+---
+import Layout from "../../layouts/Layout.astro";
+// 相册：图片放在 public/photos/，可在此按需读目录或写死列表；后续可改为从 Decap 的 media/upload 或 collection 拉取
+---
+
+<Layout title="相册" description="照片">
+  <h1 class="mb-6 text-2xl font-bold">相册</h1>
+  <p class="text-neutral-600">
+    将图片放入 <code class="rounded bg-neutral-200 px-1">public/photos/</code>
+    ，或通过 <a href="/admin" class="text-blue-600 hover:underline">/admin</a> 上传后在此展示。后续可在此页自动列出该目录下的图片。
+  </p>
+</Layout>

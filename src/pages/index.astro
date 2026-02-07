@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { siteConfig } from "../config/site";
+---
+
+<Layout title={siteConfig.title} description={siteConfig.description}>
+  <h1 class="mb-4 text-2xl font-bold">{siteConfig.title}</h1>
+  <p class="text-neutral-600">{siteConfig.description}</p>
+  <p class="mt-6">
+    <a href="/blog" class="text-blue-600 hover:underline">阅读笔记</a>
+    ·
+    <a href="/photos" class="text-blue-600 hover:underline">相册</a>
+  </p>
+</Layout>

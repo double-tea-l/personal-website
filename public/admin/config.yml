@@ -1,0 +1,23 @@
+# Decap CMS 配置。仓库需为你的 GitHub 账号下的 personal-website（或你建仓时用的名字）。
+backend:
+  name: github
+  repo: double-tea-l/personal-website
+  branch: main
+
+# 媒体文件（上传的图片）保存路径，对应站点里的 /photos
+media_folder: "public/photos"
+public_folder: "/photos"
+
+# 内容区块：阅读笔记
+collections:
+  - name: blog
+    label: 阅读笔记
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: 标题, name: title, widget: string }
+      - { label: 日期, name: date, widget: datetime }
+      - { label: 摘要, name: description, widget: string, required: false }
+      - { label: 草稿, name: draft, widget: boolean, default: false }
+      - { label: 正文, name: body, widget: markdown }

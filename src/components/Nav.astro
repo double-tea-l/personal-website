@@ -1,0 +1,21 @@
+---
+import { siteConfig } from "../config/site";
+---
+
+<nav class="border-b border-neutral-200 bg-white">
+  <div class="mx-auto flex max-w-2xl items-center justify-between px-4 py-4">
+    <a href="/" class="font-semibold text-neutral-900">{siteConfig.title}</a>
+    <ul class="flex gap-6">
+      {siteConfig.nav.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class="text-neutral-600 hover:text-neutral-900"
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>

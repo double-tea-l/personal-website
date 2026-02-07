@@ -33,19 +33,19 @@
   z-index: 1;
 }
 
-/* ========== 导航：报纸头版式简洁 ========== */
+/* ========== 导航：左上标题 + 右上导航 ========== */
 .site-nav {
   border-bottom: 1px solid #e0ddd6;
   background-color: rgba(246, 244, 239, 0.98);
 }
 
 .nav-inner {
-  max-width: 720px;
-  margin: 0 auto;
+  width: 100%;
   padding: 1rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-sizing: border-box;
 }
 
 .nav-title {

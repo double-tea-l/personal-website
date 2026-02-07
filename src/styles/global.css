@@ -103,7 +103,7 @@
 /* 调参：两栏之间的间距，改大可减轻「挤」感 */
 .blog-post-layout {
   display: flex;
-  gap: 2rem; /* 目录与正文的间距，可改为 2.5rem / 3rem 等 */
+  gap: 2.5rem; /* 目录与正文的间距，可改为 2.5rem / 3rem 等 */
   align-items: flex-start;
 }
 

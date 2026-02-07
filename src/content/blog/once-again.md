@@ -1,6 +1,6 @@
 ---
 title: Once Again
-tag: 读书笔记
+tag: 日记
 date: 2026-02-06T22:19:00.000-08:00
 draft: false
 ---

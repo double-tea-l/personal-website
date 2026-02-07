@@ -11,11 +11,29 @@ function imagePaths(images: { image?: string }[] | string[]): string[] {
   return images.map((i) => (typeof i === "string" ? i : i.image ?? "")).filter(Boolean);
 }
 
-/** 只把以 http(s) 开头的当作可点击链接，避免把 iframe/embed 代码当 href 导致 404 */
 function isSafeLink(url: string | undefined): boolean {
   if (!url || typeof url !== "string") return false;
   const t = url.trim();
   return t.startsWith("http://") || t.startsWith("https://");
+}
+
+/** 从 iframe 代码里取出 src，并规范为 https；仅允许常见音乐站，避免随意嵌入 */
+const ALLOWED_EMBED_HOSTS = ["music.163.com", "y.qq.com", "open.spotify.com"];
+function getEmbedSrc(raw: string | undefined): string | null {
+  if (!raw || typeof raw !== "string") return null;
+  const m = raw.match(/src\s*=\s*["']([^"']+)["']/i);
+  if (!m) return null;
+  let src = m[1].trim();
+  if (src.startsWith("//")) src = "https:" + src;
+  if (!src.startsWith("http://") && !src.startsWith("https://")) return null;
+  try {
+    const u = new URL(src);
+    if (ALLOWED_EMBED_HOSTS.some((h) => u.hostname === h || u.hostname.endsWith("." + h)))
+      return src;
+  } catch {
+    return null;
+  }
+  return null;
 }
 
 const items = await Promise.all(
@@ -56,9 +74,23 @@ const items = await Promise.all(
             ))}
           </div>
         )}
-        {(item.data.musicUrl ?? item.data.musicTitle) && (
+        {(item.data.musicUrl ?? item.data.musicTitle) && (() => {
+          const embedSrc = getEmbedSrc(item.data.musicUrl);
+          return (
           <div class="shuoshuo-music">
-            {isSafeLink(item.data.musicUrl) ? (
+            {embedSrc ? (
+              <iframe
+                class="shuoshuo-music-iframe"
+                frameborder="0"
+                border="0"
+                marginWidth="0"
+                marginHeight="0"
+                width="330"
+                height="86"
+                src={embedSrc}
+                title={item.data.musicTitle || "音乐播放"}
+              />
+            ) : isSafeLink(item.data.musicUrl) ? (
               <a
                 href={item.data.musicUrl!.trim()}
                 target="_blank"
@@ -69,11 +101,12 @@ const items = await Promise.all(
               </a>
             ) : (
               <span class="text-[#78716c]">
-                {item.data.musicTitle || (item.data.musicUrl ? "音乐链接需填写完整网址（https://…），不要填嵌入代码" : "")}
+                {item.data.musicTitle || (item.data.musicUrl ? "支持：填网易云/QQ/Spotify 的 iframe 嵌入代码，或填 https 链接" : "")}
               </span>
             )}
           </div>
-        )}
+          );
+        })()}
         </li>
       );
     })}

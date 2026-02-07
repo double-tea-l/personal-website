@@ -195,7 +195,11 @@
 }
 
 /* ========== 写作记录（GitHub 风格热力图） ========== */
+/* 与导航、正文统一：最大宽度 1000px，与 .main-content / .nav-inner 一致 */
 .writing-activity {
+  max-width: 1000px;
+  width: 100%;
+  box-sizing: border-box;
   margin-top: 2.5rem;
   padding-top: 2rem;
   border-top: 1px solid #e0ddd6;

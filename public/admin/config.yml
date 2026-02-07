@@ -4,6 +4,9 @@ backend:
   repo: double-tea-l/personal-website
   branch: main
 
+# 站点地址，便于 Decap 做登录回调与预览
+site_url: https://personal-website-ochre-chi-22.vercel.app
+
 # 媒体文件（上传的图片）保存路径，对应站点里的 /photos
 media_folder: "public/photos"
 public_folder: "/photos"

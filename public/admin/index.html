@@ -4,7 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>内容管理</title>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- 用 jsDelivr 备用，国内访问往往比 unpkg 稳定 -->
+    <script src="https://cdn.jsdelivr.net/npm/decap-cms@3/dist/decap-cms.js"></script>
   </head>
-  <body></body>
+  <body>
+    <div id="root">
+      <p style="padding: 2rem; font-family: sans-serif;">
+        正在加载编辑器…若长时间白屏，请按 F12 打开开发者工具，在 Console 里查看是否有报错。
+      </p>
+    </div>
+  </body>
 </html>

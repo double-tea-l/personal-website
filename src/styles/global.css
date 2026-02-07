@@ -103,18 +103,15 @@
   color: #1c1917;
 }
 
-/* ========== 文章正文：报纸/书本感，Courier 保留 ========== */
-/* 调参：正文阅读宽度 65ch≈65 字符；改大(如 75ch)更宽。margin 0 auto 使正文在栏内居中 */
+/* ========== 文章正文：与导航栏左右等宽（同 .nav-inner 内容区） ========== */
 .article-body {
   font-family: var(--font-body);
-  font-size: 0.9375rem;   /* 约 15px，更接近书本正文 */
+  font-size: 0.9375rem;
   line-height: 1.62;
-  letter-spacing: 0;       /* 字距收紧，更接近书本 */
+  letter-spacing: 0;
   color: #292524;
-  max-width: 65ch;
+  max-width: 100%;
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .article-body h1 {
@@ -218,9 +215,11 @@
   color: #1c1917;
 }
 
+/* 热力图整体右对齐，使右侧与导航栏「相册」等宽 */
 .activity-grid-wrap {
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   gap: 0.5rem;
 }
 

@@ -1,6 +1,49 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { siteConfig } from "../config/site";
+import WritingActivity from "../components/WritingActivity.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).filter((p) => !p.data.draft);
+const toDateKey = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const dayCount: Record<string, number> = {};
+for (const p of posts) {
+  const key = toDateKey(p.data.date);
+  dayCount[key] = (dayCount[key] ?? 0) + 1;
+}
+
+const today = new Date();
+const startDate = new Date(today);
+startDate.setDate(startDate.getDate() - 364);
+const getWeekStart = (d: Date) => {
+  const x = new Date(d);
+  x.setDate(x.getDate() - x.getDay());
+  return x;
+};
+const weekStart = getWeekStart(startDate);
+
+const COLS = 53;
+const ROWS = 7;
+const grid: number[][] = [];
+for (let c = 0; c < COLS; c++) {
+  const col: number[] = [];
+  for (let r = 0; r < ROWS; r++) {
+    const cellDate = new Date(weekStart);
+    cellDate.setDate(weekStart.getDate() + c * 7 + r);
+    const key = toDateKey(cellDate);
+    if (cellDate < startDate || cellDate > today) {
+      col.push(-1);
+    } else {
+      const count = dayCount[key] ?? 0;
+      col.push(Math.min(count, 4));
+    }
+  }
+  grid.push(col);
+}
+
+const activeDays = Object.keys(dayCount).length;
+const totalPosts = posts.length;
 ---
 
 <Layout title={siteConfig.title} description={siteConfig.description}>
@@ -9,6 +52,12 @@ import { siteConfig } from "../config/site";
   <p class="mt-8">
     <a href="/blog">阅读笔记</a>
     ·
+    <a href="/shuoshuo">说说</a>
+    ·
+    <a href="/archive">归档</a>
+    ·
     <a href="/photos">相册</a>
   </p>
+
+  <WritingActivity grid={grid} activeDays={activeDays} totalPosts={totalPosts} />
 </Layout>

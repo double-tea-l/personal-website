@@ -1,0 +1,78 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import type { BlogTag } from "../../content/config";
+
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const tagOrder: BlogTag[] = ["读书笔记", "日记"];
+const byTag = new Map<BlogTag, typeof posts>();
+for (const tag of tagOrder) {
+  byTag.set(tag, posts.filter((p) => p.data.tag === tag));
+}
+// 若有未在 tagOrder 中的 tag（将来扩展），也显示
+for (const post of posts) {
+  if (!byTag.has(post.data.tag)) {
+    byTag.set(post.data.tag, posts.filter((p) => p.data.tag === post.data.tag));
+  }
+}
+---
+
+<Layout title="归档" description="按体裁分类的文章归档">
+  <h1 class="mb-8">归档</h1>
+  <p class="text-[#57534e] mb-8">按文章体裁分类。</p>
+
+  {tagOrder.map((tag) => {
+    const list = byTag.get(tag) ?? [];
+    if (list.length === 0) return null;
+    return (
+      <section class="mb-10">
+        <h2 class="text-lg font-semibold text-[#1c1917] mb-4 pb-2 border-b border-[#e0ddd6]">
+          {tag}
+        </h2>
+        <ul class="list-none pl-0 space-y-2">
+          {list.map((post) => (
+            <li>
+              <a
+                href={`/blog/${post.slug}`}
+                class="flex justify-between gap-4 py-2 border-b border-[#e0ddd6] border-opacity-50 hover:border-opacity-100"
+              >
+                <span class="font-medium text-[#1c1917] truncate">{post.data.title}</span>
+                <span class="text-sm text-[#78716c] shrink-0">
+                  {post.data.date.toLocaleDateString("zh-CN")}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  })}
+
+  {Array.from(byTag.entries())
+    .filter(([tag]) => !tagOrder.includes(tag))
+    .map(([tag, list]) => (
+      <section class="mb-10">
+        <h2 class="text-lg font-semibold text-[#1c1917] mb-4 pb-2 border-b border-[#e0ddd6]">
+          {tag}
+        </h2>
+        <ul class="list-none pl-0 space-y-2">
+          {list.map((post) => (
+            <li>
+              <a
+                href={`/blog/${post.slug}`}
+                class="flex justify-between gap-4 py-2 border-b border-[#e0ddd6] border-opacity-50 hover:border-opacity-100"
+              >
+                <span class="font-medium text-[#1c1917] truncate">{post.data.title}</span>
+                <span class="text-sm text-[#78716c] shrink-0">
+                  {post.data.date.toLocaleDateString("zh-CN")}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+</Layout>

@@ -15,7 +15,7 @@ const posts = (await getCollection("blog"))
         <a href={`/blog/${post.slug}`} class="block py-1.5 border-b border-[#e0ddd6] border-opacity-60 last:border-0">
           <span class="font-medium text-[#1c1917]">{post.data.title}</span>
           <span class="ml-2 text-sm text-[#78716c]">
-            {post.data.date.toLocaleDateString("zh-CN")}
+            {post.data.tag} · {post.data.date.toLocaleDateString("zh-CN")}
           </span>
         </a>
       </li>

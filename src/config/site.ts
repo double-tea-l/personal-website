@@ -7,7 +7,8 @@ export const siteConfig = {
   nav: [
     { label: "首页", href: "/" },
     { label: "阅读笔记", href: "/blog" },
+    { label: "说说", href: "/shuoshuo" },
+    { label: "归档", href: "/archive" },
     { label: "相册", href: "/photos" },
-    // 以后可加：{ label: "音乐", href: "/music" },
   ],
 } as const;

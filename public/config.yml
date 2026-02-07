@@ -20,7 +20,24 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: 标题, name: title, widget: string }
+      - { label: 体裁, name: tag, widget: select, options: ["读书笔记", "日记"], default: "读书笔记" }
       - { label: 日期, name: date, widget: datetime }
       - { label: 摘要, name: description, widget: string, required: false }
       - { label: 草稿, name: draft, widget: boolean, default: false }
       - { label: 正文, name: body, widget: markdown }
+
+  - name: shuoshuo
+    label: 说说
+    folder: "src/content/shuoshuo"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: 时间, name: date, widget: datetime }
+      - { label: 内容, name: body, widget: markdown }
+      - label: 图片
+        name: images
+        widget: list
+        required: false
+        field: { label: 图片, name: image, widget: image }
+      - { label: 音乐链接, name: musicUrl, widget: string, required: false }
+      - { label: 音乐说明, name: musicTitle, widget: string, required: false }

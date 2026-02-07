@@ -1,0 +1,72 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const list = (await getCollection("shuoshuo")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+function imagePaths(images: { image?: string }[] | string[]): string[] {
+  if (!images?.length) return [];
+  return images.map((i) => (typeof i === "string" ? i : i.image ?? "")).filter(Boolean);
+}
+
+const items = await Promise.all(
+  list.map(async (item) => ({
+    ...item,
+    Content: (await item.render()).Content,
+    imgs: imagePaths(item.data.images as { image?: string }[] | string[]),
+    timeStr: item.data.date.toLocaleString("zh-CN", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
+  }))
+);
+---
+
+<Layout title="说说" description="随手记、灵感与碎片">
+  <h1 class="mb-2">说说</h1>
+  <p class="text-[#57534e] text-sm mb-8">随口几句、灵感、图与歌。</p>
+
+  <ul class="shuoshuo-list">
+    {items.map((item) => {
+      const Content = item.Content;
+      return (
+        <li class="shuoshuo-card">
+          <time class="shuoshuo-time" datetime={item.data.date.toISOString()}>
+            {item.timeStr}
+          </time>
+          <div class="shuoshuo-body">
+            <Content />
+          </div>
+        {item.imgs.length > 0 && (
+          <div class="shuoshuo-images">
+            {item.imgs.map((src) => (
+              <img src={src} alt="" class="shuoshuo-img" loading="lazy" />
+            ))}
+          </div>
+        )}
+        {(item.data.musicUrl ?? item.data.musicTitle) && (
+          <div class="shuoshuo-music">
+            {item.data.musicUrl ? (
+              <a
+                href={item.data.musicUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="shuoshuo-music-link"
+              >
+                {item.data.musicTitle || "听歌"}
+              </a>
+            ) : (
+              <span class="text-[#78716c]">{item.data.musicTitle}</span>
+            )}
+          </div>
+        )}
+        </li>
+      );
+    })}
+  </ul>
+</Layout>

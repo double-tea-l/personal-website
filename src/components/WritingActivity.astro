@@ -1,0 +1,50 @@
+---
+interface Props {
+  /** 53 列 × 7 行，每格为当天文章数（0–4+），-1 表示不在范围内 */
+  grid: number[][];
+  /** 过去一年内有输出的天数 */
+  activeDays: number;
+  /** 过去一年内总文章数 */
+  totalPosts: number;
+}
+
+const { grid, activeDays, totalPosts } = Astro.props;
+const levelClass = (n: number) => {
+  if (n <= 0) return "level-0";
+  if (n === 1) return "level-1";
+  if (n === 2) return "level-2";
+  if (n === 3) return "level-3";
+  return "level-4";
+};
+---
+
+<section class="writing-activity" aria-label="写作记录">
+  <div class="activity-header">
+    <span class="activity-summary">
+      过去一年 <strong>{activeDays}</strong> 天有写文章，共 <strong>{totalPosts}</strong> 篇
+    </span>
+  </div>
+  <div class="activity-grid-wrap">
+    <div class="activity-grid" role="img" aria-label="按日的写作热力图">
+      {grid.map((col, c) => (
+        <div class="activity-col" key={c}>
+          {col.map((count, r) => (
+            <span
+              class={`activity-cell ${levelClass(count)}`}
+              title={count >= 0 ? (count === 0 ? "无" : `${count} 篇`) : ""}
+            />
+          ))}
+        </div>
+      ))}
+    </div>
+    <div class="activity-legend">
+      <span>少</span>
+      <span class="activity-cell level-0" />
+      <span class="activity-cell level-1" />
+      <span class="activity-cell level-2" />
+      <span class="activity-cell level-3" />
+      <span class="activity-cell level-4" />
+      <span>多</span>
+    </div>
+  </div>
+</section>

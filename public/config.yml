@@ -1,8 +1,11 @@
-# Decap CMS 从站点根路径 /config.yml 加载，勿删。详细配置可参考 public/admin/config.yml
+# Decap CMS 从站点根路径 /config.yml 加载。
+# Vercel 部署时用本仓库自带的 OAuth 代理（/api/auth、/api/callback），需在 Vercel 配置环境变量并创建 GitHub OAuth App。
 backend:
   name: github
   repo: double-tea-l/personal-website
   branch: main
+  base_url: https://personal-website-ochre-chi-22.vercel.app
+  auth_endpoint: api/auth
 
 site_url: https://personal-website-ochre-chi-22.vercel.app
 

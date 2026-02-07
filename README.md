@@ -37,15 +37,48 @@ npm run dev
 ## 用编辑器发文章（/admin）
 
 - 部署后访问 **你的网站地址/admin**（如 `https://你的站点.vercel.app/admin`）。
-- 首次使用需登录：用 **Netlify** 部署时可用 Netlify Identity；若用 **Vercel** 部署，需在 Decap 文档里配置 GitHub OAuth 或使用 [Decap 的 serverless 方案](https://decapcms.org/docs/backends-overview/)。
-- 在「阅读笔记」里新建或编辑文章，写完后点 **发布**，会自动 commit 到 GitHub，触发重新构建，网站即更新。
+
+### 让 /admin 在 Vercel 上能登录（GitHub OAuth）
+
+项目里已带好 OAuth 代理（`api/auth`、`api/callback`），你只需：
+
+1. **创建 GitHub OAuth App**  
+   - 打开 [GitHub → Settings → Developer settings → OAuth Apps → New OAuth App](https://github.com/settings/applications/new)。  
+   - **Application name**：随意，例如 `personal-website-cms`。  
+   - **Homepage URL**：填你的 Vercel 站点地址，例如 `https://personal-website-ochre-chi-22.vercel.app`。  
+   - **Authorization callback URL**：填 `https://你的Vercel站点地址/api/callback`（例如 `https://personal-website-ochre-chi-22.vercel.app/api/callback`）。  
+   - 点 **Register application**，记下 **Client ID** 和 **Client secrets**（点 Generate a new client secret 生成一个）。
+
+2. **在 Vercel 里配置环境变量**  
+   - 打开 Vercel 项目 → **Settings** → **Environment Variables**。  
+   - 添加（Production、Preview 可都勾选）：  
+     - `OAUTH_CLIENT_ID` = 上一步的 Client ID  
+     - `OAUTH_CLIENT_SECRET` = 上一步的 Client secret  
+     - `ORIGIN` = 你的站点地址，例如 `https://personal-website-ochre-chi-22.vercel.app`  
+     - `COMPLETE_URL` = 你的站点地址 + `/api/callback`，例如 `https://personal-website-ochre-chi-22.vercel.app/api/callback`
+
+3. **重新部署**  
+   - 在 Vercel 的 **Deployments** 里对最新一次部署点 **Redeploy**，或本地改任意文件后 `git push` 触发部署。
+
+4. **验证**  
+   - 打开 **https://你的站点地址/admin**，点 **Login with GitHub**，应能完成登录并在后台写文章。
+
+若你之后换了域名（例如绑定自定义域名），需要：  
+- 在 GitHub OAuth App 里改 **Homepage URL** 和 **Authorization callback URL**；  
+- 在 Vercel 里改 `ORIGIN`、`COMPLETE_URL`；  
+- 在 `public/config.yml` 里改 `backend.base_url` 和 `site_url`。
+
+### 备选：改用 Netlify 部署（用 Git Gateway，无需 OAuth App）
+
+若不想维护 GitHub OAuth App，可把站部署到 Netlify 并用 Git Gateway：在 Netlify 开启 Identity + Git Gateway，把 `public/config.yml` 的 `backend.name` 改为 `git-gateway`、`site_url` 改为 Netlify 地址，并删掉 `backend.repo`、`base_url`、`auth_endpoint`。
 
 ## 项目结构
 
 - `src/config/site.ts`：站名、导航（以后加音乐等区块可在此加链接）。
 - `src/content/blog/`：阅读笔记的 Markdown（也可在 /admin 里写）。
 - `public/photos/`：相册图片；在 /admin 上传的媒体会放这里。
-- `public/admin/`：Decap CMS 配置与入口。
+- `public/admin/`：Decap CMS 后台入口与说明。
+- `api/auth.js`、`api/callback.js`：Vercel 上用于 GitHub 登录的 OAuth 代理。
 
 ## 扩展
 

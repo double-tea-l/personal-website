@@ -5,7 +5,7 @@ backend:
   repo: double-tea-l/personal-website
   branch: main
   base_url: https://personal-website-ochre-chi-22.vercel.app
-  auth_endpoint: api/auth
+  auth_endpoint: auth
 
 site_url: https://personal-website-ochre-chi-22.vercel.app
 

@@ -11,6 +11,13 @@ function imagePaths(images: { image?: string }[] | string[]): string[] {
   return images.map((i) => (typeof i === "string" ? i : i.image ?? "")).filter(Boolean);
 }
 
+/** 只把以 http(s) 开头的当作可点击链接，避免把 iframe/embed 代码当 href 导致 404 */
+function isSafeLink(url: string | undefined): boolean {
+  if (!url || typeof url !== "string") return false;
+  const t = url.trim();
+  return t.startsWith("http://") || t.startsWith("https://");
+}
+
 const items = await Promise.all(
   list.map(async (item) => ({
     ...item,
@@ -51,9 +58,9 @@ const items = await Promise.all(
         )}
         {(item.data.musicUrl ?? item.data.musicTitle) && (
           <div class="shuoshuo-music">
-            {item.data.musicUrl ? (
+            {isSafeLink(item.data.musicUrl) ? (
               <a
-                href={item.data.musicUrl}
+                href={item.data.musicUrl!.trim()}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="shuoshuo-music-link"
@@ -61,7 +68,9 @@ const items = await Promise.all(
                 {item.data.musicTitle || "听歌"}
               </a>
             ) : (
-              <span class="text-[#78716c]">{item.data.musicTitle}</span>
+              <span class="text-[#78716c]">
+                {item.data.musicTitle || (item.data.musicUrl ? "音乐链接需填写完整网址（https://…），不要填嵌入代码" : "")}
+              </span>
             )}
           </div>
         )}

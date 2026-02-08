@@ -12,7 +12,7 @@ const { Content } = await post.render();
 ---
 
 <Layout title={post.data.title} description={post.data.description}>
-  <article class="article-body">
+  <article class:list={["article-body", post.data.tag === "日记" && "tag-diary"]}>
     <h1>{post.data.title}</h1>
     <p class="article-meta">{post.data.date.toLocaleDateString("zh-CN")}</p>
     <Content />

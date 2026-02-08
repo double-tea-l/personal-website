@@ -1,9 +1,16 @@
 @import "tailwindcss";
 
-/* 英文：Libre Baskerville（书/报纸感），中文：微软雅黑等 */
+/* 英文：Libre Baskerville；中文默认：思源宋体（Noto Serif SC）；【日记】用霞鹜文楷见下方 .tag-diary */
 :root {
   --font-english: "Libre Baskerville", Georgia, "Times New Roman", serif;
-  --font-body: var(--font-english), "Microsoft YaHei", "微软雅黑", "PingFang SC", "Hiragino Sans GB", serif;
+  --font-chinese: "Noto Serif SC", "Source Han Serif SC", "宋体", "SimSun", "Microsoft YaHei", "微软雅黑", "PingFang SC", serif;
+  --font-body: var(--font-english), var(--font-chinese);
+}
+
+/* 【日记】体裁：正文统一用霞鹜文楷 */
+.article-body.tag-diary {
+  --font-chinese: "LXGW WenKai", "霞鹜文楷", "Noto Serif SC", serif;
+  font-family: var(--font-english), var(--font-chinese);
 }
 
 /* ========== 纸张感底色 + 轻微颗粒 ========== */

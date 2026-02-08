@@ -29,6 +29,7 @@ collections:
         widget: markdown
         modes: [raw, rich_text]
         buttons: [bold, italic, code, link, heading-one, heading-two, heading-three, heading-four, heading-five, heading-six, quote, bulleted-list, numbered-list]
+        editor_components: [image, code-block, underline, color, font]
 
   - name: shuoshuo
     label: 说说
@@ -42,6 +43,7 @@ collections:
         widget: markdown
         modes: [raw, rich_text]
         buttons: [bold, italic, code, link, heading-one, heading-two, heading-three, heading-four, heading-five, heading-six, quote, bulleted-list, numbered-list]
+        editor_components: [image, code-block, underline, color, font]
       - label: 图片
         name: images
         widget: list

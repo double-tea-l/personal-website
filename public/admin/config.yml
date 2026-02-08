@@ -24,7 +24,11 @@ collections:
       - { label: 日期, name: date, widget: datetime }
       - { label: 摘要, name: description, widget: string, required: false }
       - { label: 草稿, name: draft, widget: boolean, default: false }
-      - { label: 正文, name: body, widget: markdown }
+      - label: 正文
+        name: body
+        widget: markdown
+        modes: [raw, rich_text]
+        buttons: [bold, italic, code, link, heading-one, heading-two, heading-three, heading-four, heading-five, heading-six, quote, bulleted-list, numbered-list]
 
   - name: shuoshuo
     label: 说说
@@ -33,7 +37,11 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: 时间, name: date, widget: datetime }
-      - { label: 内容, name: body, widget: markdown }
+      - label: 内容
+        name: body
+        widget: markdown
+        modes: [raw, rich_text]
+        buttons: [bold, italic, code, link, heading-one, heading-two, heading-three, heading-four, heading-five, heading-six, quote, bulleted-list, numbered-list]
       - label: 图片
         name: images
         widget: list

@@ -18,8 +18,11 @@ const { title, description = "" } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Proxima Nova: replace YOUR_KIT_ID with your Adobe Fonts kit ID from use.typekit.net -->
+    <link rel="stylesheet" href="https://use.typekit.net/YOUR_KIT_ID.css" />
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
     <title>{title}</title>
   </head>

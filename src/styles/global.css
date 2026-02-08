@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
-/* 英文字体 Courier Prime，中文微软雅黑（Mac 无雅黑时用 PingFang） */
+/* 英文 Proxima Nova，中文微软雅黑；未加载 Proxima Nova 时回退到 Courier Prime */
 :root {
-  --font-body: "Courier Prime", "Microsoft YaHei", "微软雅黑", "PingFang SC", "Hiragino Sans GB", sans-serif;
+  --font-english: "Proxima Nova", "Courier Prime", sans-serif;
+  --font-body: var(--font-english), "Microsoft YaHei", "微软雅黑", "PingFang SC", "Hiragino Sans GB", sans-serif;
 }
 
 /* ========== 纸张感底色 + 轻微颗粒 ========== */

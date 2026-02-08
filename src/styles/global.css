@@ -1,32 +1,9 @@
 @import "tailwindcss";
 
-/* Proxima Nova 自托管：将 .woff2 放到 public/fonts/ 并命名为下方文件名即可生效 */
-@font-face {
-  font-family: "Proxima Nova";
-  src: url("/fonts/ProximaNova-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Proxima Nova";
-  src: url("/fonts/ProximaNova-Semibold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Proxima Nova";
-  src: url("/fonts/ProximaNova-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* 英文：Proxima Nova（自托管）或 Source Sans 3；中文：微软雅黑等 */
+/* 英文：Libre Baskerville（书/报纸感），中文：微软雅黑等 */
 :root {
-  --font-english: "Proxima Nova", "Source Sans 3", "Courier Prime", sans-serif;
-  --font-body: var(--font-english), "Microsoft YaHei", "微软雅黑", "PingFang SC", "Hiragino Sans GB", sans-serif;
+  --font-english: "Libre Baskerville", Georgia, "Times New Roman", serif;
+  --font-body: var(--font-english), "Microsoft YaHei", "微软雅黑", "PingFang SC", "Hiragino Sans GB", serif;
 }
 
 /* ========== 纸张感底色 + 轻微颗粒 ========== */

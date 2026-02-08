@@ -1,8 +1,31 @@
 @import "tailwindcss";
 
-/* 英文 Proxima Nova，中文微软雅黑；未加载 Proxima Nova 时回退到 Courier Prime */
+/* Proxima Nova 自托管：将 .woff2 放到 public/fonts/ 并命名为下方文件名即可生效 */
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("/fonts/ProximaNova-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("/fonts/ProximaNova-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("/fonts/ProximaNova-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 英文：Proxima Nova（自托管）或 Source Sans 3；中文：微软雅黑等 */
 :root {
-  --font-english: "Proxima Nova", "Courier Prime", sans-serif;
+  --font-english: "Proxima Nova", "Source Sans 3", "Courier Prime", sans-serif;
   --font-body: var(--font-english), "Microsoft YaHei", "微软雅黑", "PingFang SC", "Hiragino Sans GB", sans-serif;
 }
 
@@ -136,17 +159,24 @@
 }
 
 .article-body h2,
-.article-body h3 {
+.article-body h3,
+.article-body h4,
+.article-body h5,
+.article-body h6 {
   font-family: var(--font-body);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0;
   color: #1c1917;
   margin-top: 1.5em;
   margin-bottom: 0.5em;
+  line-height: 1.35;
 }
 
-.article-body h2 { font-size: 1.125rem; }
-.article-body h3 { font-size: 1.0625rem; }
+.article-body h2 { font-size: 1.25rem; }
+.article-body h3 { font-size: 1.125rem; }
+.article-body h4 { font-size: 1.0625rem; }
+.article-body h5 { font-size: 1rem; }
+.article-body h6 { font-size: 0.9375rem; }
 
 .article-body p {
   margin-bottom: 0.95em;

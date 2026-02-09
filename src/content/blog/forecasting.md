@@ -1,0 +1,9 @@
+---
+title: Forecasting
+tag: 日记
+date: 2026-02-09T11:53:00.000-08:00
+draft: false
+---
+How to forecast?
+
+Explainability is 50% of the forecasts, as important as the accuracy. Our goal is not to perfect forecast every week (we don't know how e.g. new dx will react to the snow storm), but we know what's driving the change w/w. E.g. we missed the estimation of conversation e.g. then everyone understands why we need the money.
